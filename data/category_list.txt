@@ -1,0 +1,99 @@
+Artificial Intelligence
+
+Data Science
+
+Machine Learning
+
+Computer Vision
+
+Natural Language Processing
+
+Robotics
+
+Neural Networks
+
+Deep Learning
+
+Data Mining
+
+Big Data
+
+Cloud Computing
+
+Internet of Things
+
+Cryptography
+
+Computer Networks
+
+Web Development
+
+Mobile App Development
+
+Database Systems
+
+Operating Systems
+
+Software Engineering
+
+Computer Graphics
+
+Human-Computer Interaction
+
+Computer Security
+
+Virtual Reality
+
+Augmented Reality
+
+Game Development
+
+Algorithm Design
+
+Compiler Design
+
+Computer Architecture
+
+Distributed Systems
+
+Parallel Computing
+
+Image Processing
+
+Information Retrieval
+
+Wireless Communication
+
+Data Compression
+
+Computer Vision
+
+Embedded Systems
+
+Bioinformatics
+
+Natural Language Understanding
+
+Information Theory
+
+Computer Algebra
+
+Computational Biology
+
+Evolutionary Computation
+
+Computer Ethics
+
+Data Visualization
+
+Information Security
+
+Cloud Security
+
+Software Testing
+
+High-Performance Computing
+
+Quantum Computing
+
+Computer Animation
