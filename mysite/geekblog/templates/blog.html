@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>User Login</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  {% load static %}
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+
+
+  <header id="header" class="header d-flex align-items-center">
+
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="http://127.0.0.1:8000" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png" alt=""> -->
+        <h1>GeekBlog<span>.</span></h1>
+      </a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="/blog">Browse</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </nav><!-- .navbar -->
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+    </div>
+  </header><!-- End Header -->
+  <!-- End Header -->
+  <main style="width:100%; height: fit-content; margin-bottom: 30%;">
+        <style>
+            .blogbox {
+                width: 65%;
+                border: 1px solid #555555;
+                border-radius: 5px;
+                box-shadow: 5px 5px 20px var(--color-primary);
+                margin-right: auto;
+                margin-top: 15%;
+                margin-left: 20px;
+            }
+            .blogbox h1 {
+                margin-top: 10px;
+                padding: 20px;
+                text-align: center;
+                font-size: 3rem;
+            }
+            .blog {
+                width: 90%;
+                height: max-content;  
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 1px;
+                margin-top: 1px;
+                border: 1px dashed #222222;
+                position: relative;
+            }
+            .blogheader {
+              margin: 15px;
+              margin-top: 10px;
+              padding-bottom: 20px;
+              font-style: italic;
+            }
+            .category {
+                font-size: 16px;
+                color: #555555;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+            .title {
+              font-size: 1.5rem;
+              text-decoration: underline;
+              font-weight: bolder;
+              font-style: normal;
+            }
+            .title:hover {
+              text-decoration: underline;
+            }
+            .author {
+              font-size: 1rem;
+              text-decoration: underline;
+              
+            }
+            .author:hover {
+              text-decoration: underline;
+            }
+            .blogstat {
+              padding: 2px;
+              color: #363636;
+              font-size: 12px;
+              font-weight: 500;
+            }
+            .blogstat ul {
+              display: flex;
+              justify-content: flex-end;
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              list-style: none;
+          }
+            .blogstat ul li {
+              margin: 10px;
+              margin-bottom: 0;
+            }
+            .tags {
+              color: #555555;
+              font-size: 13px;
+              font-style: italic;
+              font-weight: bold;
+            }
+            .tags a {
+                color: #f85a40;
+                text-decoration: underline;
+              }
+            .tags a:hover {
+                color: #ff816d;
+                text-decoration: underline;
+              }
+            
+            .searchbox {
+              position: fixed;
+              top: 8%;
+              margin-left: 69%;
+              margin-bottom: 50%;
+              height: 700px;
+              width: 30%; /* 边框的宽度 */
+              border: 1px solid #555555;
+              border-radius: 5px;
+              box-shadow: 5px 5px 20px var(--color-secondary);
+            }
+        </style>
+    <section class="blogbox">
+        <h1>Latesing Updated in all Categories</h1>
+        {% for i, j in recent.items %}
+        <div class="blog">
+            <div class="blogheader">
+                <a class="category" href="/category/{{j.category}}">{{ j.category }}</a>
+                <p>
+                <a class="title" href="/{{j.id}}">
+                  {{ j.title }}</a>
+                  BY 
+                <a class="author" href="/profile/{{j.username}}">
+                  {{ j.username }}</a>
+                </p> 
+                <p class="tags">Tags: 
+                    {% for tag in j.tags %}
+                    {% if tag %}
+                      <a href="/tag/{{tag}}">#{{ tag }}</a>
+                    {% endif %}
+                    {% endfor %}
+                </p>
+                <p style="font-style:italic;"> {{ j.summary }} </p>
+            </div>
+            <div class="blogstat">
+                <ul>
+                    <li>First Posted: {{ j.post_date }}</a></li>
+                    <li>Last Updated: {{ j.last_update }}</a></li>
+                    <li>Kudos: {{ j.kudos_cnt }}</li>
+                    <li>Comment: <a href="/{{ j.id }}#comment" style="text-decoration: underline;">{{j.comment_cnt}} </a></li>
+                </ul>
+            </div>
+        </div>
+        <br><br>
+        {% endfor %}
+        <div class="pagination">
+          <style>
+            .pagination {
+              display: inline-block;
+              padding-top: 50px;
+            }
+            
+            .pagination a {
+              color: black;
+              float: left;
+              padding: 8px 16px;
+              text-decoration: none;
+            }
+          </style>
+          <li class="previous">
+            {% if page == 1 %}
+              <span class="disabled">← Previous</span>
+            {% else %}
+              <a href="/blog?page={{ page-1 }}">← Previous</a>
+            {% endif %}
+          </li>
+          {% for p in num_page %}
+            {% if p <= 9 %}
+              <li>
+                <a class="page" href="/blog?page={{ p }}">p</a>
+              </li>
+            {% else %}
+              <li>...</li>
+              <li>
+                <a class="page" href="/blog?page={{ num_page }}">num_page</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          <li class="next">
+            {% if page == num_page %}
+              <span class="disabled">Next →</span>
+            {% else %}
+              <a href="/blog?page={{ page+1 }}">Next →</a>
+            {% endif %}
+          </li>
+        </div>
+    </section>
+
+    <section class="searchbox"></section>
+  </main>
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <style>
+    </style>
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-info">
+          <a href="http://127.0.0.1:8000" class="logo d-flex align-items-center">
+            <span>GeekBlog</span>
+          </a>
+          <p>Welcome to join us.</p>
+          <div class="social-links d-flex mt-4">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>
+            <strong>Email:</strong> contact@geekblog.com<br>
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container mt-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>GeekBlog</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/impact-bootstrap-business-website-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer><!-- End Footer -->
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}" ></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}" ></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}" ></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}" ></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}" ></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}" ></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}" ></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}" ></script>
+
+</body>
+
+</html>
