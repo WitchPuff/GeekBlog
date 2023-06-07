@@ -1,13 +1,13 @@
 -- Active: 1685674652344@@127.0.0.1@3306@blog
--- DROP TABLE kudos;
--- DROP TABLE comment;
--- DROP TABLE article;
--- DROP TABLE profile;
--- DROP TABLE auth;
--- DROP TABLE constant;
+DROP TABLE kudos;
+DROP TABLE comment;
+DROP TABLE article;
+DROP TABLE profile;
+DROP TABLE auth;
+DROP TABLE constant;
 CREATE TABLE constant
 	(
-		category 	VARCHAR(50) UNIQUE NOT NULL
+		category 	VARCHAR(50) PRIMARY KEY
 	);
 CREATE TABLE auth
 	(

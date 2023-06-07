@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>User Login</title>
+  <title>Browse</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   {% load static %}
@@ -43,12 +43,24 @@
         <!-- <img src="{% static 'assets/img/logo.png" alt=""> -->
         <h1>GeekBlog<span>.</span></h1>
       </a>
+      {% if logined == 1 %}
+      <a href="http://127.0.0.1:8000/user/{{ username }}" class="logo d-flex align-items-center">
+        <h1 style="font-size: 15px; right: 15%; position: absolute; text-decoration: underline; padding-right: 5px;">{{ username }}</h1>
+      </a>
+      <a href="{% url 'flush' %}" class="logo d-flex align-items-center">
+        <h1 style="font-size: 15px; right: 10%; position: absolute; text-decoration: underline; padding-right: 5px;">Esc</h1>
+      </a>
+      {% else %}
+      <a href="{% url 'login' %}" class="logo d-flex align-items-center">
+        <h1 style="font-size: 15px; right: 10%; position: absolute; text-decoration: underline; padding-right: 5px;">{{ username }}</h1>
+      </a>
+      {% endif %}
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="/blog">Browse</a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'blog' %}">Browse</a></li>
           <li><a href="/search">Search</a></li>
-          <li><a href="/login">Login</a></li>
+          <li><a href="/login">Get Started</a></li>
         </ul>
       </nav><!-- .navbar -->
 
@@ -58,19 +70,21 @@
     </div>
   </header><!-- End Header -->
   <!-- End Header -->
-  <main style="width:100%; height: fit-content; margin-bottom: 30%;">
+  <main style="width:100%; height: max-content; margin-bottom: 10%;">
         <style>
             .blogbox {
-                width: 65%;
+                width: 85%;
+                height: max-content;
                 border: 1px solid #555555;
                 border-radius: 5px;
                 box-shadow: 5px 5px 20px var(--color-primary);
                 margin-right: auto;
-                margin-top: 15%;
-                margin-left: 20px;
+                margin-top: 10%;
+                margin-left: auto;
+                position: relative;
             }
             .blogbox h1 {
-                margin-top: 10px;
+                margin-bottom: 7%;
                 padding: 20px;
                 text-align: center;
                 font-size: 3rem;
@@ -88,6 +102,7 @@
             .blogheader {
               margin: 15px;
               margin-top: 10px;
+              margin-bottom: auto;
               padding-bottom: 20px;
               font-style: italic;
             }
@@ -116,6 +131,8 @@
             }
             .blogstat {
               padding: 2px;
+              margin-top: auto;
+              padding-top: 5%;
               color: #363636;
               font-size: 12px;
               font-weight: 500;
@@ -125,6 +142,7 @@
               justify-content: flex-end;
               position: absolute;
               bottom: 0;
+              padding-top: 10%;
               right: 0;
               list-style: none;
           }
@@ -147,21 +165,30 @@
                 text-decoration: underline;
               }
             
+            /*
             .searchbox {
               position: fixed;
-              top: 8%;
+              background-color: white;
+              z-index: 1;
+              top: 12%;
               margin-left: 69%;
               margin-bottom: 50%;
-              height: 700px;
-              width: 30%; /* 边框的宽度 */
+              height: 60%;
+              width: 30%; 
               border: 1px solid #555555;
               border-radius: 5px;
               box-shadow: 5px 5px 20px var(--color-secondary);
             }
+            */
         </style>
     <section class="blogbox">
-        <h1>Latesing Updated in all Categories</h1>
-        {% for i, j in recent.items %}
+      {% if order == "trending" %}
+        <h1>Trendings in all Categories
+        </h1>
+      {% else %}
+        <h1>Latest Updated in all Categories</h1>
+      {% endif %}
+        {% for j in recent.values %}
         <div class="blog">
             <div class="blogheader">
                 <a class="category" href="/category/{{j.category}}">{{ j.category }}</a>
@@ -195,57 +222,73 @@
         <div class="pagination">
           <style>
             .pagination {
-              display: inline-block;
-              padding-top: 50px;
+              position: absolute;
+              left: 50%;
+              transform: translate(-50%, 0);
+              font-size: 1rem;
             }
-            
+            .pagination li{
+              display: inline-block;
+              text-align: center;
+              width: max-content;
+            }
             .pagination a {
               color: black;
-              float: left;
-              padding: 8px 16px;
+              padding: 6px 12px;
               text-decoration: none;
             }
+            .pagination a.active {
+              background-color: var(--color-secondary);
+              color: white;
+            }
+            
+            .pagination a:hover:not(.active) {background-color: #ddd;}
           </style>
           <li class="previous">
             {% if page == 1 %}
               <span class="disabled">← Previous</span>
             {% else %}
-              <a href="/blog?page={{ page-1 }}">← Previous</a>
+              <a href="{% url 'blog' %}?page={{ page|add:-1 }}&order={{ order }}">← Previous</a>
             {% endif %}
           </li>
-          {% for p in num_page %}
-            {% if p <= 9 %}
+          {% if pages.0 > 1 %}
+            <li>
+              <a class="page" href="{% url 'blog' %}?page=1&order={{ order }}">1</a>
+            </li>
+            <li>...</li>
+          {% endif %}
+          {% for p in pages %}
               <li>
-                <a class="page" href="/blog?page={{ p }}">p</a>
+                <a class="page" href="{% url 'blog' %}?page={{ p }}&order={{ order }}">{{ p }}</a>
               </li>
-            {% else %}
-              <li>...</li>
-              <li>
-                <a class="page" href="/blog?page={{ num_page }}">num_page</a>
-              </li>
-            {% endif %}
           {% endfor %}
-          <li class="next">
-            {% if page == num_page %}
-              <span class="disabled">Next →</span>
-            {% else %}
-              <a href="/blog?page={{ page+1 }}">Next →</a>
-            {% endif %}
+          {% if num_page > 10 %}
+            <li>...</li>
+            <li>
+              <a class="page" href="{% url 'blog' %}?page={{ num_page }}&order={{ order }}">{{ num_page }}</a>
+            </li>
+          {% endif %}
+           
+            <li class="next">
+              {% if page == num_page %}
+                <span class="disabled">Next →</span>
+              {% else %}
+                <a href="{% url 'blog' %}?page={{ page|add:1 }}&order={{ order }}">Next →</a>
+              {% endif %}
+
           </li>
         </div>
     </section>
 
-    <section class="searchbox"></section>
+    <!-- <section class="searchbox"></section> -->
   </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
-    <style>
-    </style>
     <div class="container">
       <div class="row gy-4">
         <div class="col-lg-5 col-md-12 footer-info">
-          <a href="http://127.0.0.1:8000" class="logo d-flex align-items-center">
+          <a href="{% url 'home' %}" class="logo d-flex align-items-center">
             <span>GeekBlog</span>
           </a>
           <p>Welcome to join us.</p>
@@ -260,7 +303,7 @@
         <div class="col-lg-2 col-6 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#hero">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="#">Terms of service</a></li>
             <li><a href="#">Privacy policy</a></li>
           </ul>

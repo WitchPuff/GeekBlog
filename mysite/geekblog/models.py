@@ -47,7 +47,7 @@ class Comment(models.Model):
 
 
 class Constant(models.Model):
-    category = models.CharField(unique=True, max_length=50)
+    category = models.CharField(primary_key=True,unique=True, max_length=50)
 
     class Meta:
         managed = False
